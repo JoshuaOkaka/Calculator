@@ -1,0 +1,105 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+    <div class="container">
+        <section class="screen">
+            <div class="input" ></div>
+            <div class="answer">0</div>
+        </section>
+
+        <section class="keypad">
+            <button class="functions" id="clear" >C</button>
+            <button class="functions" value="" id="erase">&#11013</button>
+            <button class="functions" value="/">/</button>
+            <button class="functions" value="X">X</button>
+            
+            
+
+            <button class="number" value="7">7</button>
+            <button class="number" value="8">8</button>
+            <button class="number" value="9">9</button>
+            <button class="functions" value="-">-</button>
+
+            <button class="number" value="4">4</button>
+            <button class="number" value="5">5</button>
+            <button class="number" value="6">6</button>
+            <button class="functions" value="+"> +</button>
+
+            <button class="number" value="1">1</button>
+            <button class="number" value="2">2</button>
+            <button class="number" value="3">3</button>
+            <button class="functions" value="%" >%</button>
+           
+
+            <button class="number">00</button>
+            <button class="number">0</button>
+            <button class="number" value=".">.</button>
+            <button class="functions" id="evaluate">=</button>
+        </section>
+    </div>
+
+
+    <!-- script for the calculator -->
+
+    <script>
+        let input = document.querySelector('.input');
+        let answer = document.querySelector('.answer');
+        let buttons =document .querySelectorAll('button');
+        let evaluate =document.querySelector('#evaluate');
+        let clear=document.querySelector('#clear');
+        let erase =document.querySelector('#erase');
+
+        let currentScreenValue=[];
+
+        clear.addEventListener('click', ()=>{
+            currentScreenValue=[''];
+            input.className='input';
+            answer.className='answer';
+            answer.innerHTML=0;
+
+        })
+
+        buttons.forEach((btn)=>{
+            btn.addEventListener('click',()=>{
+                // buttons other than erase 
+
+                 if(!btn.id.match('erase')){
+                    currentScreenValue.push(btn.value)
+                    input.innerHTML=currentScreenValue.join('');
+                 }
+
+                 if(btn.classList.contains('number')){
+                    answer.innerHTML=eval(currentScreenValue.join(''))
+
+                 }
+
+                    // when erase button is clicked 
+                if (btn.id.match('erase')){
+                    realTimeScreenValue.pop();
+                    currentInput.innerHTML=realTimeScreenValue.join('');
+                    answerScreen.innerHTML=eval(realTimeScreenValue.join(''));
+                }
+                //when clicked button is evaluate button
+                if(btn.id.match('evaluate')){
+                    currentInput.className='answerScreen';
+                    answerScreen.className='currentInput';
+                    answerScreen.style.color="white";
+
+                }
+                //to prevent undefined error in screen 
+                if(typeof eval(realTimeScreenValue.join(''))=='undefined'){
+                    answerScreen.innerHTML=0
+                }
+            })
+            
+        })
+
+    </script>
+</body>
+</html>
